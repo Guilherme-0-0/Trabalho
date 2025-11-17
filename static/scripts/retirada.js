@@ -32,10 +32,36 @@ document.addEventListener('DOMContentLoaded', function() {
                     // data = lista de objetos {id, produto_nome, validade_text, quantidade, lote}
                     const container = document.getElementById('validade-options');
                     container.innerHTML = '';
+                    // product preview
+                    const preview = document.getElementById('product-preview');
+                    const previewImg = document.getElementById('preview-img');
+                    const previewName = document.getElementById('preview-name');
+                    const previewExtra = document.getElementById('preview-extra');
 
                     if (!data || data.length === 0) {
+                        // hide preview
+                        if (preview) preview.style.display = 'none';
                         container.innerHTML = `<div class="error-message" role="status">\n                          <i class="bi bi-exclamation-triangle"></i> ${'Nenhum produto encontrado ou sem estoque.'}\n                        </div>`;
                     } else {
+                        // populate preview using first returned item
+                        const first = data[0];
+                        if (previewName) previewName.textContent = first.produto_nome || '';
+                        if (previewExtra) previewExtra.textContent = first.lote ? `Lote: ${first.lote}` : (first.produto_nome ? '' : '');
+                        if (previewImg) {
+                            if (first.image_path) {
+                                let src = first.image_path.trim();
+                                if (!src.startsWith('http') && !src.startsWith('/')) {
+                                    src = '/static/img/' + src;
+                                }
+                                previewImg.src = src;
+                                previewImg.alt = first.produto_nome || 'Produto';
+                                previewImg.style.display = '';
+                            } else {
+                                previewImg.style.display = 'none';
+                            }
+                        }
+                        if (preview) preview.style.display = 'flex';
+
                         // Para cada entrada distinta de validade, cria um botão
                         data.forEach(item => {
                             const btn = document.createElement('button');
@@ -95,6 +121,8 @@ document.addEventListener('DOMContentLoaded', function() {
             campoBarra.style.display = 'block';
             codigoInput.value = '';
             codigoInput.focus();
+            const preview = document.getElementById('product-preview');
+            if (preview) preview.style.display = 'none';
         });
     }
 });

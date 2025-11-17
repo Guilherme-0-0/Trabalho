@@ -70,6 +70,14 @@
             {% endif %}
           </p>
           <div id="validade-options" class="validade-list" aria-live="polite"></div>
+          <!-- Preview do produto escaneado -->
+          <div id="product-preview" class="product-preview" style="display:none; width:100%; margin-top:12px; align-items:center; gap:12px;">
+            <img id="preview-img" src="" alt="" style="width:96px; height:96px; object-fit:cover; border-radius:12px; border:1px solid rgba(255,255,255,0.06); display:none; box-shadow:var(--shadow-md);">
+            <div style="flex:1; text-align:left;">
+              <h3 id="preview-name" style="margin:0 0 6px; font-size:1.1rem; color:var(--text-primary);"></h3>
+              <p id="preview-extra" style="margin:0; color:var(--text-secondary); font-size:0.95rem;">&nbsp;</p>
+            </div>
+          </div>
           <div class="validade-actions" style="width:100%; display:flex; justify-content:center; gap:12px;">
             <button type="button" id="voltar-btn" class="btn-voltar">
               <i class="bi bi-arrow-left-circle"></i>

@@ -318,6 +318,43 @@ def home():
     # Flags de paginação
     has_prev = page > 1
     has_next = page < total_pages
+    # Busca categorias distintas do estoque para popular o filtro de categorias
+    try:
+        cursor.execute('SELECT DISTINCT categoria FROM estoque ORDER BY categoria ASC')
+        cats_rows = cursor.fetchall()
+    except Exception:
+        cats_rows = []
+
+    # Traduz os rótulos das categorias usando as chaves 'category_<id>' em translations.py
+    lang = session.get('lang', 'pt')
+    categorias = []
+    for row in cats_rows:
+        # row pode ser sqlite3.Row; tenta extrair o valor
+        cat_val = None
+        try:
+            cat_val = row['categoria']
+        except Exception:
+            try:
+                cat_val = row[0]
+            except Exception:
+                cat_val = row
+
+        try:
+            cat_id = int(cat_val)
+        except Exception:
+            cat_id = cat_val
+
+        label_key = f'category_{cat_id}'
+        categorias.append({'id': cat_id, 'label': translate(label_key, lang)})
+
+    # Garantir que a categoria 'Bebidas' (id 5) esteja disponível no filtro mesmo que ainda não exista no DB
+    try:
+        has_bebidas = any(int(c.get('id')) == 5 for c in categorias)
+    except Exception:
+        has_bebidas = False
+
+    if not has_bebidas:
+        categorias.append({'id': 5, 'label': translate('category_5', lang)})
 
     return render_template('home.html', produtos=produtos,
                            total_produtos=total_produtos,
@@ -327,7 +364,8 @@ def home():
                            current_page=page,
                            total_pages=total_pages,
                            has_prev=has_prev,
-                           has_next=has_next)
+                           has_next=has_next,
+                           categorias=categorias)
 
 # --------------------------------------------------------------------------
 # ROTAS DE ENTRADA (ADICIONAR)

@@ -37,7 +37,8 @@ const MAPA_IMAGENS_PRODUTOS = {
     "macarrão": "macarrao.jpeg",
     "mamão": "mamao.jpeg",
     "mandioca": "mandioca.jpeg",
-    "placeholder": "placeholder_generico.png" 
+    "placeholder": "placeholder_generico.png" ,
+    "coca cola": "coca.jpg",
 };
 
 const FALLBACK_IMAGE_NAME = "placeholder_generico.png"; 
