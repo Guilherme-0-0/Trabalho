@@ -1,0 +1,130 @@
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    img {
+        border-radius: 20px;
+        border-color: black;
+    }
+
+    .cartao {
+        margin-top: 15%;
+        margin-left: 28%;
+        height: 300px;
+        width: 700px;
+        text-align: center;
+        align-items: center;
+        background-color: rgb(137, 89, 0);
+        border-radius: 40px;
+        padding: 20px;
+        position: relative;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .cartao::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(7, 0, 0);
+        border-radius: 40px;
+
+
+    }
+
+    .cartao::before {
+        content: "";
+        background: linear-gradient(45deg,
+                #FF0000, #FF7300, #FFFB00, #48FF00,
+                #00FFD5, #002BFF, #FF00C8, #FF0000);
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        background-size: 600%;
+        z-index: -1;
+        width: calc(100% + 4px);
+        height: calc(100% + 4px);
+        filter: blur(8px);
+        animation: glowing 20s linear infinite;
+        transition: opacity .3s ease-in-out;
+        border-radius: 40px;
+        opacity: 1;
+    }
+
+    @keyframes glowing {
+        0% {
+            background-position: 0 0;
+        }
+
+        50% {
+            background-position: 400% 0;
+        }
+
+        100% {
+            background-position: 0 0;
+        }
+    }
+
+    .item{
+        background-color: rgb(137, 89, 0);
+        height: 15px;
+        width: 130px;
+        padding: 4.7px;
+        border-radius: 20px;
+        margin-left: 40%;
+    }
+
+    .item:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s;
+        background-color: orange;
+        z-index: 0;
+        
+    }
+     .item:active{
+        cursor: pointer;
+        color: red;
+      
+    }
+    .item:hover::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        background-color: orange;
+        z-index: -1;
+    }
+    .item::before {
+        content: "";
+        background: linear-gradient(45deg,
+                #FF0000, #FF7300, #FFFB00, #48FF00,
+                #00FFD5, #002BFF, #FF00C8, #FF0000);
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        background-size: 600%;
+        z-index: -1;
+        width: calc(100% + 4px);
+        height: calc(100% + 4px);
+        filter: blur(8px);
+        animation: glowing 20s linear infinite;
+        transition: opacity .3s ease-in-out;
+        border-radius: 40px;
+        opacity: 1;
+        z-index: -1;
+    }
+   
